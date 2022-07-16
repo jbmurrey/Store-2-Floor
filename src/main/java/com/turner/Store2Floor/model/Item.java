@@ -37,4 +37,5 @@ public class Item {
 	public void setSection(String section) {
 		Section = section;
 	}
+	public static String[] locations = {"Store", "Floor"};
 }

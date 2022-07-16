@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.turner.Store2Floor.model.Item;
+import com.turner.Store2Floor.model.Item.locations;
 import com.turner.Store2Floor.service.MariaDbUtil;
 
 public class ItemDao {
@@ -16,6 +17,7 @@ public class ItemDao {
 	private static Connection conn = MariaDbUtil.getConnection();
 	//Queries
 	private static String selectAllItems = "select * from item";
+	private static String selectItemsbyLocation = "select * from item Where Location = ?";
 	private static String selectItem = "select * from item " + "WHERE ItemID = ?";
 	private static String updateItem = "UPDATE item " + " SET Item_Name =  ? " + " , Quantity =  ? " + "  , Location =  ? " + " , Section =  ? " +  "  WHERE ItemID = ? ";
 	private static String insertItem = "INSERT INTO item (Item_Name,Quantity,Location,Section) VALUES(" + "? , " +  "? , " + "? , " + " ? " + ")";
@@ -40,6 +42,27 @@ public class ItemDao {
 		try{
 			ps = conn.prepareStatement(selectItem);
 			ps.setString(1,Integer.toString(id));
+			result = ps.executeQuery();
+			items = resultToList(result);
+			ps.close();
+		}
+		
+		catch(SQLException e){
+		
+		}
+		return items;
+	}
+	
+	public List<Item> getItembyLocation(int locationID) {
+		
+		String location = Item.locations[locationID];
+		PreparedStatement ps = null;
+		ResultSet result = null;
+		List<Item> items = null;
+		try{
+			ps = conn.prepareStatement(selectItemsbyLocation);
+			ps.setString(1,location);
+			System.out.println(ps);
 			result = ps.executeQuery();
 			items = resultToList(result);
 			ps.close();

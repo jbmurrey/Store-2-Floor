@@ -1,0 +1,76 @@
+
+<style>
+
+.card{
+border-color: black;
+}
+.card-header {
+	background-image:
+		url("https://th.bing.com/th/id/OIP.kmomwIsEckAHpWA-Z1qQvAHaEK?pid=ImgDet&rs=1");
+	color: white;
+}
+.card-body{
+padding:0 !important;
+}
+</style>
+
+<br>
+
+<div class="container">
+	<div class="card-deck">
+		<div class="card mt3">
+			<div class="card-header">
+				<b>Store</b>
+			</div>
+			<div class="card-body">
+				<table class="table table-hover">
+					<thead class="thead-light">
+						<tr>
+							<th>Item Name</th>
+							<th>Quantity</th>
+							<th>Location</th>
+							<th>Section</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in items">
+							<td>{{item.item_Name}}</td>
+							<td>{{item.quantity}}</td>
+							<td>{{item.location}}</td>
+							<td>{{item.section}}</td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="card mt3">
+			<div class="card-header">
+				<b>Floor</b> 
+			</div>
+			<div class="card-body">
+				<table class="table table-hover">
+					<thead class="thead-light">
+						<tr>
+							<th>Item Name</th>
+							<th>Quantity</th>
+							<th>Location</th>
+							<th>Section</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in items">
+							<td>{{item.item_Name}}</td>
+							<td>{{item.quantity}}</td>
+							<td>{{item.location}}</td>
+							<td>{{item.section}}</td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

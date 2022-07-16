@@ -37,6 +37,13 @@ public class HomeController {
     	ItemDao itemdao = new ItemDao();
     	return itemdao.getItembyID(id);
     }
+    @Path("/items/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Item> getItembyLocation(@PathParam("id") int id){
+    	ItemDao itemdao = new ItemDao();
+    	return itemdao.getItembyLocation(id);
+    }
     
     @Path("/postItem")
     @POST
