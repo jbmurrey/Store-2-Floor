@@ -1,75 +1,177 @@
 
 <style>
+.main {
+	display: inline;
+}
 
-.card{
-border-color: black;
+.selected {
+	background-color: #d4d4d4;
 }
+
+.btn {
+	border-radius: 2px;
+}
+
+.top {
+	min-width: 350px;
+	text-align: center;
+}
+
+.input-group {
+	border: solid 2px white;
+	border-radius: 5px;
+	width: 12rem;
+}
+
+.table_title {
+	font-size: 1.25rem;
+	color: black;
+}
+
 .card-header {
-	background-image:
-		url("https://th.bing.com/th/id/OIP.kmomwIsEckAHpWA-Z1qQvAHaEK?pid=ImgDet&rs=1");
-	color: white;
+	text-align: center;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
 }
-.card-body{
-padding:0 !important;
+
+.pagination {
+	margin: 0;
+	justify-content: center;
+}
+
+.search {
+	width: 25rem;
+}
+
+td {
+	text-align: center;
+}
+
+th {
+	text-align: center;
+}
+
+.grayOutButton {
+	border-color: gray !important;
+	color: gray !important;
 }
 </style>
 
+
+<br>
 <br>
 
-<div class="container">
-	<div class="card-deck">
-		<div class="card mt3">
-			<div class="card-header">
-				<b>Store</b>
-			</div>
-			<div class="card-body">
-				<table class="table table-hover">
-					<thead class="thead-light">
-						<tr>
-							<th>Item Name</th>
-							<th>Quantity</th>
-							<th>Location</th>
-							<th>Section</th>
-
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="item in items">
-							<td>{{item.item_Name}}</td>
-							<td>{{item.quantity}}</td>
-							<td>{{item.location}}</td>
-							<td>{{item.section}}</td>
-
-						</tr>
-					</tbody>
-				</table>
+<div class="container" ng-controller = "homeController">
+	<div class="row">
+		<div class="col-md-8 offset-md-4">
+			<div class="input-group search">
+				<input ng-model="query" type="text" class="form-control"
+					placeholder="Search Items by Item Name" aria-label="Search Items"
+					aria-describedby="basic-addon2">
+				<div class="input-group-append">
+					<button class="btn btn-outline-primary" ng-click="filter(query)"
+						type="button">search</button>
+				</div>
 			</div>
 		</div>
-		<div class="card mt3">
-			<div class="card-header">
-				<b>Floor</b> 
-			</div>
-			<div class="card-body">
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+
+			<div class="card mt-4">
+				<div class="card-header">
+					<a class="table_title">Store</a>
+					<div class="input-group">
+						<input ng-model="quantity" type="text" class="form-control"
+							placeholder="QTY" aria-label="Quantity"
+							aria-describedby="basic-addon2">
+						<div class="input-group-append">
+							<button ng-disabled='moveToFloorDisabled'
+								ng-click="moveItem(quantity)" class="btn btn-outline-success"
+								ng-class="{grayOutButton: moveToFloorDisabled == true}"
+								type="button">Move To Floor</button>
+						</div>
+					</div>
+				</div>
+
 				<table class="table table-hover">
 					<thead class="thead-light">
 						<tr>
+							<th>Part #</th>
 							<th>Item Name</th>
 							<th>Quantity</th>
-							<th>Location</th>
-							<th>Section</th>
-
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="item in items">
+						<tr ng-repeat="item in items" ng-if="item.qStore > 0 "
+							ng-click="selectItem(item,'Store')"
+							ng-class="{selected: item.itemID == selectedItem.itemID && location == 'Store'}">
+							<td>{{item.itemID }}</td>
 							<td>{{item.item_Name}}</td>
-							<td>{{item.quantity}}</td>
-							<td>{{item.location}}</td>
-							<td>{{item.section}}</td>
-
+							<td>{{item.qStore}}</td>
 						</tr>
 					</tbody>
 				</table>
+				<div class="card-footer">
+					<div>
+						<ul class="pagination">
+							<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+							<li class="page-item"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">Next</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+
+			<div class="card mt-4">
+				<div class="card-header">
+					<a class="table_title">Floor</a>
+					<div class="input-group">
+						<input ng-model="quantity" type="text" class="form-control"
+							placeholder="QTY" aria-label="Quantity"
+							aria-describedby="basic-addon2">
+						<div class="input-group-append">
+							<button ng-class="{grayOutButton: moveToStoreDisabled == true}"
+								ng-disabled='moveToStoreDisabled' ng-click="moveItem(quantity)"
+								class="btn btn-outline-success" type="button">Move To
+								Store</button>
+						</div>
+					</div>
+				</div>
+				<table class="table table-hover">
+					<thead class="thead-light">
+						<tr>
+								<th>Part #</th>
+							<th>Item Name</th>
+							<th>Quantity</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in items" ng-if="item.qFloor > 0 "
+							ng-click="selectItem(item,'Floor')"
+							ng-class="{selected: item.itemID == selectedItem.itemID && location == 'Floor'}">
+							<td>{{item.itemID }}</td>
+							<td>{{item.item_Name}}</td>
+							<td>{{item.qFloor}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="card-footer">
+					<div>
+						<ul class="pagination">
+							<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+							<li class="page-item"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">Next</a></li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

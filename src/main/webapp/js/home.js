@@ -13,5 +13,7 @@ s2fapp.config(function($routeProvider) {
 		.otherwise({
 			templateUrl: "home.html"
 		});
+		
+		
 
 });

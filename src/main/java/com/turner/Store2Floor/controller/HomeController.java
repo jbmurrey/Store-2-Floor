@@ -37,12 +37,13 @@ public class HomeController {
     	ItemDao itemdao = new ItemDao();
     	return itemdao.getItembyID(id);
     }
-    @Path("/items/{id}")
+    
+    @Path("/items/{name}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Item> getItembyLocation(@PathParam("id") int id){
+    public List<Item> getItemsbyName(@PathParam("name") String name){
     	ItemDao itemdao = new ItemDao();
-    	return itemdao.getItembyLocation(id);
+    	return itemdao.getItemsbyName(name);
     }
     
     @Path("/postItem")
@@ -51,6 +52,14 @@ public class HomeController {
     public Item postItem(Item item){
     	ItemDao itemdao = new ItemDao();
     	itemdao.addItem(item);
+    	return item;
+    }
+    @Path("/updateItem")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Item updateItem(Item item){
+    	ItemDao itemdao = new ItemDao();
+    	itemdao.updateItem(item);
     	return item;
     }
     
