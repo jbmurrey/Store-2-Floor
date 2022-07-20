@@ -1,0 +1,27 @@
+<div class="container pt-4" ng-controller="accountController">
+
+	<form>
+		<div class="form-group">
+			<label for="email">Username:</label> <input type="text"
+				class="form-control" ng-model= "user.userName" ng-value= "user.userName">
+		</div>
+		<div class="form-group">
+			<label for="pwd">Password:</label>
+			 <input type="password"
+				class="form-control" ng-model= "user.password" ng-value="user.password">
+		</div>
+		<div class="form-group">
+			<label for="email">First Name:</label> <input type="text"
+				class="form-control" ng-model= "user.firstName" ng-value="user.firstName">
+		</div>
+		<div class="form-group">
+			<label for="email">Last Name:</label> <input type="text"
+				class="form-control" ng-model= "user.lastName" ng-value="user.lastName">
+		</div>
+		<div class="form-group">
+			<label for="email">Email address:</label> <input type="email"
+				class="form-control" ng-model= "user.email" ng-value= "user.email">
+		</div>
+		<button type="submit" class="btn btn-primary" ng-click= "updateUser()">Save</button>
+	</form>
+</div>
